@@ -28,3 +28,15 @@ class Calculator:
         query = "INSERT INTO History (Expression, Result, TimeOfAction) VALUES (?, ?, ?)"
         self.cursor.execute(query, (expression, str(result), datetime.now()))
         self.conn.commit()
+
+    def show_user_logs(self):
+        query = "SELECT Action, Result FROM UserLogs"
+        self.cursor.execute(query)
+        rows = self.cursor.fetchall()
+
+        if rows:
+            print("Логи пользователя:")
+            for row in rows:
+                print(f"Action: {row.Action} | Result: {row.Result}")
+        else:
+            print("Empty")
