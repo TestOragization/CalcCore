@@ -12,7 +12,7 @@ class Calculator:
     def calculate(self, expression: str):
         try:
             result = eval(expression)
-            self.store_history(expression, result)
+            self.add_to_history(expression, result)
             self.user_logs(expression, result)
             return result
 
@@ -22,4 +22,9 @@ class Calculator:
     def user_logs(self, action, result):
         query = "INSERT INTO UserLogs (Action, Result) VALUES (?, ?)"
         self.cursor.execute(query, (action, str(result)))
+        self.conn.commit()
+
+    def add_to_history(self, expression, result):
+        query = "INSERT INTO History (Expression, Result, TimeOfAction) VALUES (?, ?, ?)"
+        self.cursor.execute(query, (expression, str(result), datetime.now()))
         self.conn.commit()
