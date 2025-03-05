@@ -1,5 +1,5 @@
 class Calculator:
-    def __init__(self):
+    def init(self):
         self.history = []
 
     def calculate(self, expression: str):
@@ -17,23 +17,3 @@ class Calculator:
                 print(entry)
         else:
             print("История пуста.")
-
-class CoreCalculator:
-    def __init__(self):
-        self.calculator = Calculator()
-
-    def start(self):
-        while True:
-            expr = input("Введите выражение ('exit' для выхода, 'history' для истории): ")
-            if expr.lower() == "exit":
-                print("Программа завершена.")
-                break
-            elif expr.lower() == "history":
-                self.calculator.show_history()
-            else:
-                result = self.calculator.calculate(expr)
-                print(f"Результат: {result}")
-
-if __name__ == "__main__":
-    core = CoreCalculator()
-    core.start()
