@@ -40,3 +40,18 @@ class Calculator:
                 print(f"Action: {row.Action} | Result: {row.Result}")
         else:
             print("Empty")
+
+    def show_history(self):
+        query = "SELECT Expression, Result, TimeOfAction FROM History"
+        self.cursor.execute(query)
+        rows = self.cursor.fetchall()
+
+        if rows:
+            print("История расчетов:")
+            for row in rows:
+                print(f"{row.Expression} = {row.Result} at {row.TimeOfAction}")
+        else:
+            print("История пуста.")
+
+    def close(self):
+        self.conn.close()
