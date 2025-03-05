@@ -13,9 +13,13 @@ class Calculator:
         try:
             result = eval(expression)
             self.store_history(expression, result)
-            self.store_user_log(expression, result)
+            self.user_logs(expression, result)
             return result
 
         except Exception as e:
             return f"Ошибка: {e}"
-    
+
+    def user_logs(self, action, result):
+        query = "INSERT INTO UserLogs (Action, Result) VALUES (?, ?)"
+        self.cursor.execute(query, (action, str(result)))
+        self.conn.commit()
